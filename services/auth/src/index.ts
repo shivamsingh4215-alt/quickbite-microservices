@@ -2,12 +2,18 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js';
 import authRoute from './routes/auth.js'
+import cors from 'cors'
 
-dotenv.config()
+dotenv.config();
 
-const app = express()
-app.use(express.json())
-app.use("/api/auth", authRoute);
+const app = express();
+
+app.use(cors());
+
+app.use(express.json());
+
+
+app.use("/api/auth", authRoute);     //  ka matlab hai authRoute (login/signup/logout) wale saare routes /api/auth se start honge.
 
 
 const PORT = process.env.PORT || 5000;
@@ -15,5 +21,5 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, ()=>{
     console.log(`Auth service is running on PORT ${PORT}`)
-    connectDB()
+    connectDB();
 })

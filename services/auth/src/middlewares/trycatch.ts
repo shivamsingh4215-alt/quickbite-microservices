@@ -13,3 +13,6 @@ const TryCatch = (handler: RequestHandler): RequestHandler =>{
 };
 
 export default TryCatch;
+
+//login → TryCatch(login) → handler = login → handler(req,res,next) → login execute
+//first function = function lene ke liye, second function = Express request aane par us function ko execute karne ke liye.

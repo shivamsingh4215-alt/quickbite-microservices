@@ -32,7 +32,7 @@ export const isAuth = async(req: AuthenticatedRequest, res: Response, next: Next
                 message: "Please Login - Invalid token",
             });
             return;
-        }
+        } 
 
         req.user = decodedValue.user;
         next();

@@ -32,3 +32,6 @@ const schema: Schema<IUser> = new Schema({
 
 const User = mongoose.model<IUser>("User", schema);
 export default User;
+
+
+///Mongoose ne schema se "User" naam ka Model banaya → IUser type apply kiya → aur us Model ko userModel variable me rakh diya.
