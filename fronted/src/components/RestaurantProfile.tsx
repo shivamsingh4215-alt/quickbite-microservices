@@ -19,7 +19,7 @@ const RestaurantProfile = ({ restaurant, isSeller, onUpdate }: props) => {
   const [loading, setLoading] = useState(false);
 
   const toggleOpenStatus = async () => {
-    try { 
+    try {
       const { data } = await axios.put(
         `${restaurantService}/api/restaurant/status`,
         {
@@ -52,8 +52,9 @@ const RestaurantProfile = ({ restaurant, isSeller, onUpdate }: props) => {
           },
         },
       );
-      onUpdate(data.restaurant);
       toast.success(data.message);
+      onUpdate(data.restaurant);
+      setEditMode(false);
     } catch (error) {
       console.log(error);
       toast.error("Failed to update");
@@ -65,40 +66,40 @@ const RestaurantProfile = ({ restaurant, isSeller, onUpdate }: props) => {
     <div className="mx-auto max-w-xl rounded-xl bg-white shadow-sm overflow-hidden">
       {restaurant.image && (
         <img
-          src="restaurant.image"
-          alt=""
+          src={restaurant.image}
+          alt={restaurant.name}
           className="h-48 w-full object-cover"
         />
       )}
       <div className="p-5 space-y-4">
-        {isSeller && (
-          <div className="flex items-start justify-between">
-            <div>
-              {editMode ? (
-                <input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded border px-2 text-lg font-semibold"
-                />
-              ) : (
-                <h2 className="text-xl font-semibold">{restaurant.name}</h2>
-              )}
+        <div className="flex items-start justify-between">
+          <div>
+            {editMode ? (
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full rounded border px-2 text-lg font-semibold"
+              />
+            ) : (
+              <h2 className="text-xl font-semibold">{restaurant.name}</h2>
+            )}
 
-              <div className="mt-1 flex items-center gap-2 text-sm text-gray-500">
-                <BiMapPin className="h-4 w-4 text-red-500" />
-                {restaurant.autoLocation.formattedAddress ||
-                  "Location unavailable"}
-              </div>
+            <div className="mt-1 flex items-center gap-2 text-sm text-gray-500">
+              <BiMapPin className="h-4 w-4 text-red-500" />
+              {restaurant.autoLocation.formattedAddress ||
+                "Location unavailable"}
             </div>
+          </div>
 
+          {isSeller && (
             <button
               onClick={() => setEditMode(!editMode)}
-              className="text-gray-500 hover:text-black">
+              className="text-gray-500 hover:text-black"
+            >
               <BiEdit size={18} />
             </button>
-            
-          </div>
-        )}
+          )}
+        </div>
 
         {editMode ? (
           <textarea
