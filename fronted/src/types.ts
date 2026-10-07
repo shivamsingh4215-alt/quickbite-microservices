@@ -59,10 +59,61 @@ export interface IMenuItem {
 }
 
 export interface ICart {
+  _id: string;
   userId: string;
   restaurantId: string | IRestaurant;
   itemId: string | IMenuItem;
   quantity: number;
   createdAt: Date;
   updatesAt: Date;
+}
+
+export interface IOrder {
+  _id: string;
+  userId: string;
+  restaurantId: string;
+  restaurantName: string;
+  riderId?: string | null;
+  riderPhone: number | null;
+  riderName: string | null;
+  distance: number;
+  riderAmount: number;
+
+  items: {
+    itemId: string;
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
+
+  subtotal: number;
+  deliveryFee: number;
+  platformFee: number;
+  totalAmount: number;
+
+  addressId: string;
+
+  deliveryAddress: {
+    formattedAddress: string;
+    mobile: number;
+    latitude: number;
+    longitude: number;
+  };
+
+  status:
+    | "placed"
+    | "preparing"
+    | "ready_for_rider"
+    | "rider_assigned"
+    | "picked_up"
+    | "delivered"
+    | "cancelled";
+
+  paymentMethod: "razorpay" | "stripe";
+  paymentStatus: "pending" | "paid" | "failed";
+
+  expiresAt: Date;
+
+  createdAt: Date;
+  updatedAt: Date;
 }

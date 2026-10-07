@@ -209,7 +209,7 @@ export const getNearbyRestaurant = TryCatch(async (req, res) => {
           coordinates: [Number(longitude), Number(latitude)],
         },
         distanceField: "distance",
-        maxDistance: Number(radious),
+        maxDistance: Number(radius),
         spherical: true,
         query,
       },
